@@ -3,6 +3,7 @@ class User < ApplicationRecord
   
   validates :name, presence: true, length: { maximum: 30 }
   has_secure_password
+  has_secure_token :authentication_token
 
   validates :email, presence: true,
                     uniqueness: true,
