@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
 
   def index
     users = User.all()
@@ -26,4 +25,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+  
 end

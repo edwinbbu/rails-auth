@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user_using_x_auth_token, except: [:new, :edit]
 
   def index
     render html: 'Task index page'
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.new(task_params.merge!({user_id: @current_user.id}))
     if @task.save
       render status: :ok, json: { task: @task.as_json(:except => [:created_at, :updated_at]) }
     else 
