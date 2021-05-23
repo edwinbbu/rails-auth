@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params.merge!({user_id: @current_user.id}))
+    @task = Task.new(task_params.merge(user_id: @current_user.id))
     if @task.save
       render status: :ok, json: { task: @task.as_json(:except => [:created_at, :updated_at]) }
     else 
