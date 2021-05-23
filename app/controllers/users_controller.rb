@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if users
       render status: :ok, json: { users: users.as_json(:except => [:password_digest, :updated_at, :created_at]) }
     else 
-      render status: :internal_server_error, json: { notice: t('something_went_worng')}
+      render status: :internal_server_error, json: { errors: [t('something_went_worng')]}
     end
   end
 

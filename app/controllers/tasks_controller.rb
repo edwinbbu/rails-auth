@@ -2,7 +2,12 @@ class TasksController < ApplicationController
   before_action :authenticate_user_using_x_auth_token, except: [:new, :edit]
 
   def index
-    render html: 'Task index page'
+    tasks = policy_scope(Task)
+    if tasks
+      render status: :ok, json: { tasks: tasks }
+    else
+      render status: :internal_server_error, json: { errors: ["Something went wrong"]}
+    end
   end
 
   def create
